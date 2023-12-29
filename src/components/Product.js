@@ -1,6 +1,9 @@
 import React from "react";
+import Column from "./Column";
+import { CurrencyContext } from "../Context";
 
 class Product extends React.Component {
+    static contextType = CurrencyContext;
     renderStock(stock, btnClick) {
         if(stock > 0){
             return <button onClick={()=> btnClick()}>Add to cart</button>
@@ -11,10 +14,13 @@ class Product extends React.Component {
         //const data = this.props.pdata;
         const {pdata:data, btnClick} = this.props;
         return (
-            <div>
-                <img src ={data.productImage}/>    
-                <h4>{data.productName}</h4>
-                <h5>{data.productPrice}</h5>
+            <Column size = {4}>
+                <img className = "img-thumbnail" src ={data.productImage}/>
+                <h5>{data.productName}</h5>
+                <h6>
+                    {this.context}
+                    {data.productPrice}
+                </h6>
                 {this.renderStock(data.productStock, btnClick)}
 
                 {/* {
@@ -22,7 +28,7 @@ class Product extends React.Component {
                         <button onClick={()=> btnClick(data.productId)}>Add to Cart</button>
                     ) : null
                 } */}
-            </div>
+            </Column>
         );
     }
 }

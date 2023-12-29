@@ -20,7 +20,7 @@ class ProductList extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="row">
                 {this.state.plist.map((item, i) => (
                     <Product
                         key={item.productId}
