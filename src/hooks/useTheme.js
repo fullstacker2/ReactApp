@@ -1,8 +1,9 @@
 import React from "react";
 import { ThemeContext } from "../Context";
+import { useSelector } from "react-redux";
 
 function useTheme() {
-    const theme = React.useContext(ThemeContext);
+    const theme = useSelector((state) => state.theme);
     const bgColor = 'bg-'+theme;
     const altTheme = theme==="light" ? "dark": "light";
     const txtColor = theme==="light" ? "text-dark": "text-white";

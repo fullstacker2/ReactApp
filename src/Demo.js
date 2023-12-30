@@ -5,7 +5,7 @@ class Demo extends React.Component {
     shouldComponentUpdate(nextProps, nextState) {
         console.log(this.props, this.state);
         console.log(nextProps, nextState);
-        return this.state.location !== nextState.location || nextState.count == 6;
+        return this.state.location !== nextState.location || nextState.count === 6;
     }
 
     // every component must have a render method

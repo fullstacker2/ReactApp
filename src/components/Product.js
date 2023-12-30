@@ -1,6 +1,7 @@
 import React from "react";
 import Column from "./Column";
 import { CurrencyContext } from "../Context";
+import { Link } from "react-router-dom";
 
 class Product extends React.Component {
     static contextType = CurrencyContext;
@@ -15,8 +16,11 @@ class Product extends React.Component {
         const {pdata:data, btnClick} = this.props;
         return (
             <Column size = {4}>
-                <img className = "img-thumbnail" src ={data.productImage}/>
-                <h5>{data.productName}</h5>
+                <div className="d-flex flex-column shadow-sm text-center p-4 mb-4">
+                <Link to={`/detail/${data.productId}`}>
+                 <img className = "img-thumbnail" src ={data.productImage}/> 
+                </Link>
+                <h5 className="fw-light text-capitualize my-2">{data.productName}</h5>
                 <h6>
                     {this.context}
                     {data.productPrice}
@@ -28,6 +32,7 @@ class Product extends React.Component {
                         <button onClick={()=> btnClick(data.productId)}>Add to Cart</button>
                     ) : null
                 } */}
+                </div>
             </Column>
         );
     }

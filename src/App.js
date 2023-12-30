@@ -1,27 +1,43 @@
 //import logo from './logo.svg';
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
-import Demo from './Demo';
-import ProductList from "./containers/ProductList"
-import Checkout from "./containers/Checkout"
 import ThemeSwitch from './components/ThemeSwitch';
 import { CurrencyContext, ThemeContext } from './Context';
 import Currency from './components/Currency';
+import AppRouter from './AppRouter';
+import { BrowserRouter } from 'react-router-dom';
+import Menu from "./components/Menu"
 
 function App() {
   const [theme, setTheme] = React.useState("light");
   const [code, setCode] = React.useState("INR");
+  const [isFirstChange, setFirstChange] = React.useState(false);
+  useEffect( () => {
+    if(localStorage.getItem("currency", code)) {
+      setCode(localStorage.getItem("currency"));
+    }
+  },[])
+  useEffect( () => {
+    if(isFirstChange) {
+      localStorage.setItem("currency", code);
+    }
+  },[code, isFirstChange])
   return (
-    <div className="App">
+    <BrowserRouter>
       <ThemeContext.Provider value={theme}>
-        <Currency changeCurrency={(c) => setCode(c)} />
-        <ThemeSwitch changeTheme ={(t) => setTheme(t)}/>
         <CurrencyContext.Provider value={code}>
-          <ProductList/>
+          <Menu/>
+          <ThemeSwitch changeTheme ={(t) => setTheme(t)}/>
+          <Currency 
+            changeCurrency={(c) =>  {
+            setCode(c)
+            setFirstChange(true)
+          }} 
+          />
+          <AppRouter/>
         </CurrencyContext.Provider>
       </ThemeContext.Provider>
-      <ProductList />
-    </div>
+    </BrowserRouter>
   );
 }
 

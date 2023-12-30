@@ -1,5 +1,4 @@
 import React from "react";
-import { ThemeContext } from "../Context";
 import useTheme from "../hooks/useTheme";
 
 function Column(props) {
