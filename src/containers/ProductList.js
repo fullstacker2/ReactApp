@@ -1,6 +1,8 @@
 import React from "react";
 import Product from "../components/Product";
 import Axios from "axios";
+import { connect } from "react-redux";
+import {addItem} from "../store/slices/cartSlice.js";
 
 class ProductList extends React.Component {
     state = {plist : []};
@@ -25,11 +27,23 @@ class ProductList extends React.Component {
                     <Product
                         key={item.productId}
                         pdata={item}
-                        btnClick={() => console.log("add item")}
+                        btnClick={() => this.props.add(item)}
                     />
                 ))}
             </div>
         );
     }
 }
-export default ProductList;
+// connect(data to get from the store, data changes to be done inside the store)
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        // prop_name: dispatch_action
+        add: (item) => dispatch(addItem(item)),
+    };
+}
+const mapStateToProps=(state)=>{
+    return {
+        cart: state.cart,
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

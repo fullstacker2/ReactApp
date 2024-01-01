@@ -13,6 +13,6 @@ const themeSlice =createSlice({
     },
 });
 // actions will be used by the component to make data changes
-export const{changeTheme} = themeSlice.actions;
+export const {changeTheme} = themeSlice.actions;
 // reducer will be used by the store
 export default themeSlice.reducer;
